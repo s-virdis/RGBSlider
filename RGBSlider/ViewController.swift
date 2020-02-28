@@ -24,9 +24,9 @@ class ViewController: UIViewController {
     
     // MARK: - Private Properties
 
-    private var r: Float = Float.random(in: 0..<255)
-    private var g: Float = Float.random(in: 0..<255)
-    private var b: Float = Float.random(in: 0..<255)
+    private var redValue:   Float = Float.random(in: 0..<255)
+    private var greenValue: Float = Float.random(in: 0..<255)
+    private var blueValue:  Float = Float.random(in: 0..<255)
     
     
     // MARK: - Override Methods
@@ -45,33 +45,34 @@ class ViewController: UIViewController {
         
         switch sender {
         case redSlider:
-            r = sender.value
+            redValue = sender.value
  
         case greenSlider:
-            g = sender.value
+            greenValue = sender.value
 
         case blueSlider:
-            b = sender.value
+            blueValue = sender.value
 
         default:
             break
         }
         
-        setColor()
-        
+        setColor(red: redValue, green: greenValue, blue: blueValue)
+        setLabelText(red: redValue, green: greenValue, blue: blueValue)
     }
     
     // MARK: Private Methods
 
     private func setRandomColor(){
         
-        redSlider.value   = r
-        greenSlider.value = g
-        blueSlider.value  = b
+        redSlider.value   = redValue
+        greenSlider.value = greenValue
+        blueSlider.value  = blueValue
         
-        setColor()
-        
+        setColor(red: redValue, green: greenValue, blue: blueValue)
+        setLabelText(red: redValue, green: greenValue, blue: blueValue)
     }
+    
     private func setupUI(){
         
         colorView.layer.cornerRadius = 8;
@@ -95,14 +96,20 @@ class ViewController: UIViewController {
         
     }
     
-   private func setColor(){
-    
-        redLabel.text   = NSString(format:"%.2f", r) as String
-        greenLabel.text = NSString(format:"%.2f", g) as String
-        blueLabel.text  = NSString(format:"%.2f", b) as String
+   private func setColor(red: Float,green: Float, blue:Float){
 
-        colorView.backgroundColor = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 1.0)
+        colorView.backgroundColor = UIColor(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255, alpha: 1.0)
     
+    }
+    
+    private func setLabelText(red: Float,green: Float, blue:Float){
+        
+        let stringFormat = "%.2f"
+        
+        redLabel.text   = String(format:stringFormat, red)
+        greenLabel.text = String(format:stringFormat, green)
+        blueLabel.text  = String(format:stringFormat, blue)
+        
     }
     
 }
